@@ -1,43 +1,58 @@
-import { AntDesign, EvilIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 import * as React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfilePicture from '../components/ProfilePicture';
 import { View } from '../components/Themed';
 import Colors from '../constants/Colors';
+import { createTweet } from '../graphql/mutations';
 
 export default function NewTweetScreen() {
   const navigation = useNavigation();
   const [content, setContent] = React.useState('');
   const [imageURL, setImageURL] = React.useState('');
 
-  const onPress = () => {
-    console.warn('Posted Tweet');
+  const onPress = async () => {
+    try {
+      const currentUser = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+      });
+      await API.graphql(
+        graphqlOperation(createTweet, {
+          input: {
+            title: content,
+            image: imageURL,
+            userID: currentUser.attributes.sub,
+          },
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
     returnHome();
   };
 
   const returnHome = (): void => {
-    navigation.navigate('Home');
+    navigation.goBack();
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <AntDesign
-          name="close"
-          size={30}
-          color={Colors.light.tint}
-          onPress={returnHome}
-        />
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.button}
-          onPress={onPress}
-        >
-          <Text style={styles.buttonText}>Tweet</Text>
+        <TouchableOpacity onPress={returnHome} activeOpacity={0.5}>
+          <AntDesign name="close" size={30} color={Colors.light.tint} />
         </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.button}
+            onPress={onPress}
+          >
+            <Text style={styles.buttonText}>Tweet</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.newTweetContainer}>
         <ProfilePicture
@@ -93,6 +108,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginLeft: 20,
+    paddingRight: 50,
   },
   tweetInput: {
     height: 100,

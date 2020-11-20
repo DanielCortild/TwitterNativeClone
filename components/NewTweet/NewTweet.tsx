@@ -1,8 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Text } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfilePicture from '../ProfilePicture';
 import { View } from '..//Themed';
@@ -32,13 +31,15 @@ const NewTweet = () => {
           color={Colors.light.tint}
           onPress={returnHome}
         />
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.button}
-          onPress={onPress}
-        >
-          <Text style={styles.buttonText}>Tweet</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.button}
+            onPress={onPress}
+          >
+            <Text style={styles.buttonText}>Tweet</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.newTweetContainer}>
         <ProfilePicture

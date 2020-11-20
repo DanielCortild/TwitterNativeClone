@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   content__image: {
     marginVertical: 6,
     width: '100%',
+    maxHeight: 150,
     height: 150,
     resizeMode: 'contain',
     borderRadius: 30,

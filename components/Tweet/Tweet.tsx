@@ -16,5 +16,4 @@ const Tweet = ({ tweet }: TweetProps) => (
     <MainContainer tweet={tweet} />
   </View>
 );
-
 export default Tweet;

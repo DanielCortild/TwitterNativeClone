@@ -12,15 +12,15 @@ const Footer = ({ tweet }: TweetProps) => (
   <View style={styles.footer}>
     <View style={styles.footer__iconContainer}>
       <Feather name="message-circle" size={20} color="gray" />
-      <Text style={styles.footer__number}>{tweet.numberOfComments}</Text>
+      <Text style={styles.footer__number}>{tweet?.numberOfComments}</Text>
     </View>
     <View style={styles.footer__iconContainer}>
       <EvilIcons name="retweet" size={28} color="gray" />
-      <Text style={styles.footer__number}>{tweet.numberOfRetweets}</Text>
+      <Text style={styles.footer__number}>{tweet?.numberOfRetweets}</Text>
     </View>
     <View style={styles.footer__iconContainer}>
       <AntDesign name="hearto" size={20} color="gray" />
-      <Text style={styles.footer__number}>{tweet.numberOfLikes}</Text>
+      <Text style={styles.footer__number}>{tweet?.numberOfLikes}</Text>
     </View>
     <View style={styles.footer__iconContainer}>
       <EvilIcons name="share-google" size={28} color="gray" />

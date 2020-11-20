@@ -9,10 +9,14 @@ export type TweetProps = {
 
 const Content = ({ tweet }: TweetProps) => (
   <View>
-    <Text style={styles.content__text}>{tweet.content}</Text>
-    {tweet.image && (
-      <Image style={styles.content__image} source={{ uri: tweet.image }} />
-    )}
+    <Text style={styles.content__text}>{tweet?.title}</Text>
+    <Image
+      style={{
+        ...styles.content__image,
+        display: tweet.image?.length ? 'block' : 'none',
+      }}
+      source={{ uri: tweet.image }}
+    />
   </View>
 );
 
